@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function buzzer() {
+        console.log("ENGGGGGGGGGGGGGG");
+      }
+      //   console.log("starting");
+      // setTimeout(buzzer, 1000);
+      //   console.log("finishing");
+
+      //   setInterval(buzzer, 2000); // This doesn't invoke the function immediately , but only after 2 seconds and then again in intervals of 2 seconds
+
+      function sayHi() {
+        console.log("Hi");
+      }
+
+      function setImmediateInterval(funcToRun, ms) {
+        //right away call that function
+        funcToRun();
+        //run at a regular interval
+        return setInterval(funcToRun, ms);
+      }
+
+      // setImmediateInterval(buzzer, 2000);
+      //   setImmediateInterval(sayHi, 1000);
+
+      function destroy() {
+        document.body.innerHTML = `<p>DESTROYED</p>`;
+      }
+
+      //Timeout runs an event ONCE , after a predetermined time
+      const bombTimer = setTimeout(destroy, 5000); // Adding a reference to a timer
+
+      window.addEventListener("click", function () {
+        console.log("You clicked and saved the world");
+        clearTimeout(bombTimer); // To  stop a timer
+      });
+      //This is a number type
+
+      const poopInterval = setInterval(function () {
+        console.log(`💩`);
+        console.log("poop");
+      }, 100);
+
+      setTimeout(function () {
+        clearInterval(poopInterval);
+      }, 5000);
+      // console.log(bombTimer); // When console logged, the timer references returns a number
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../base.css" />
+  </head>
+  <body>
+    <style>
+      .turt {
+        position: relative;
+        --x: 0px;
+        --y: 0px;
+        --rotateY: 0;
+        --rotate: 0;
+        transform: translateX(var(--x)) translateY(var(--y))
+          rotateY(var(--rotateY)) rotate(var(--rotate));
+        transition: transform 0.1s;
+      }
+    </style>
+    <img width="200" src="./turtle.png" alt="turt" class="turt" />
+    <script>
+      const turtle = document.querySelector(".turt");
+
+      let x = 0;
+      let y = 0;
+      const MOVEMENT_SPEED = 25;
+      let flipped = false;
+      let rotate = 0;
+      function handleKeyDown(event) {
+        if (!event.key.includes("Arrow")) {
+          return;
+        }
+
+        switch (event.key) {
+          case "ArrowUp":
+            y = y - MOVEMENT_SPEED;
+            rotate = -90;
+            break;
+          case "ArrowDown":
+            y = y + MOVEMENT_SPEED;
+            rotate = 90;
+            break;
+          case "ArrowLeft":
+            x = x - MOVEMENT_SPEED;
+            flipped = true;
+            rotate = 0;
+            break;
+          case "ArrowRight":
+            x = x + MOVEMENT_SPEED;
+            flipped = false;
+            rotate = 0;
+            break;
+          default:
+            console.log("This is not a valid move");
+            break;
+        }
+        // turtle.style.background = "red";
+        // turtle.style["background"] = "red";
+
+        turtle.setAttribute(
+          "style",
+          `--x:${x}px;
+                 --y: ${y}px;
+                --rotateY: ${flipped ? "180deg" : "0"};
+                --rotate: ${rotate}deg;
+                 `
+        );
+      }
+      window.addEventListener("keydown", handleKeyDown);
+    </script>
+  </body>
+</html>

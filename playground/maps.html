@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul class="prizes"></ul>
+    <script>
+      const person1 = {
+        name: "wes",
+        age: 200,
+        another: "hey",
+      };
+      const myMap = new Map();
+      myMap.set("name", "wes");
+      myMap.age = 100;
+      myMap.set(100, "This is a number");
+      myMap.set(person1, "This is really cool"); // A map functions in such a way that you can add all kinds of key value pairs as entries in the map
+
+      console.log(myMap.get(person1)); //Fetches the meta data
+      //So this kinda functions as a way of storing meta data
+
+      console.log(myMap);
+
+      const score = 300;
+      const prizes = new Map();
+      prizes.set(100, "Bear");
+      prizes.set(200, "Duck");
+      prizes.set(300, "Car");
+
+      console.log(prizes);
+      console.log(`you win a ${prizes.get(score)}`);
+
+      //Its like an object with a little more fidelity
+
+      //In a map the order is guaranteed, whatever order u enter things in, that stays
+
+      //you don't have methods in maps like in objects
+
+      //MAPS cannot be converted to JSON
+
+      const ul = document.querySelector(".prizes");
+      prizes.forEach((entry) => {
+        console.log(entry);
+      });
+
+      for (const [points, prize] of prizes) {
+        const li = `<li>${points} : ${prize}</li>`;
+        ul.insertAdjacentHTML("beforeend", li);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../base.css" />
+  </head>
+  <body>
+    <script>
+      const names = ["wes", "kate", "snickers"];
+      console.log(names);
+      console.log(names[0]);
+      console.log(names.length);
+      console.log(names[names.length - 1]);
+
+      //adding to the back
+      names.push("lux");
+      console.log("original array + lux", names);
+
+      //add to the back of the copy
+      const names2 = [...names, "lux"];
+      console.log("Copy of original array + lux", names2);
+
+      const names3 = ["firstcopy", ...names]; //Adds the word to the first index
+      console.log("added to front of copy", names3);
+      names.unshift("firstie");
+      console.log("added to front", names);
+      const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+      //Mutable operation
+      // numbers.reverse();
+      //array.reverse(); edits the original array as well
+      //If you don't want to mutate the original array , u need to create a copy array
+
+      const numberReversed = [...numbers].reverse();
+      console.log("original", numbers);
+      console.log("reversed copy", numberReversed);
+
+      //immutable operation
+      const pizzaSlice = numbers.slice(2, 4);
+      console.log(pizzaSlice);
+      console.log(numbers);
+
+      //mutable operation
+      console.log("before splice", numbers);
+      numbers.splice(3, 2);
+      console.log("after splice", numbers);
+
+      const bikes = ["bianchi", "miele", "panasonic", "miyata"];
+
+      //Using a combination of spread and slice to add stuff into an array
+      const newBikez = [...bikes.slice(0, 2), "benotto", ...bikes.slice(2)]; //giving a single argument to slice will slice from that point to the end
+      console.log(newBikez);
+      const newBikes2 = [...newBikez.slice(0, 3), ...newBikez.slice(4)]; //giving slice a single argument
+      console.log(newBikes2);
+
+      const comments = [
+        { text: "coolbeans", id: 123 },
+        { text: "whaddup", id: 133 },
+        { text: "itiswhatitis", id: 453 },
+        { text: "ohno", id: 325 },
+        { text: "sogood", id: 648 },
+      ];
+
+      function deleteComment(id, comments) {
+        //first find the index of the item in the array
+        const commentIndex = comments.findIndex((comment) => comment.id === id);
+        //Make a new array without that item
+        return [
+          ...comments.slice(0, commentIndex),
+          ...comments.slice(commentIndex + 1),
+        ];
+        //return that new array
+      }
+
+      nameToFind = "kate";
+      const kaitIndex = names.findIndex((name) => name === `${nameToFind}`);
+
+      const newNamesWithoutKate = [
+        //get everything up to kate
+        ...names.slice(0, kaitIndex),
+        //everything after kate index
+        ...names.slice(kaitIndex + 1),
+      ];
+      console.log(names);
+      console.log(newNamesWithoutKate);
+
+      //converting stuff into arrays using flat
+
+      var randomArray = [names.slice(0, 1), names.slice(3)];
+      console.log("before flattening", randomArray);
+      randomArray = randomArray.flat();
+      console.log("flattened with flat()", randomArray);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <input type="text" name="first" value="hi" /> -->
+    <script src="https://unpkg.com/lodash@4.17.21/lodash.js"></script>
+    <script>
+      const age = 100;
+      const person = {
+        name: "wes",
+        fullname: "WesBos",
+        age,
+        "cool-dude": true, //You can add dashes
+        "really cool dude": false, //Can add space in properties
+        777: 25,
+        sayHello: function (greeting = "Hey") {
+          return `${greeting} ${this.fullname}`; //This is a method (function inside a object)
+        },
+        sayHi(greeting = "hi") {
+          return `${greeting} ${this.fullname}`; //Functions can also be written like this
+        },
+        saySneeze: () => {
+          // console.log(this.fullname)  //Arrow functions don't have access to this
+          console.log("AAHH CHOO");
+        },
+        clothing: {
+          //Adding sub object
+          shirts: 10,
+          pants: 2,
+        },
+      };
+
+      person.job = "Manager"; // Adding a property after definiton
+      person.age = 50; // Updating a property after definition
+
+      //The objects cannot be overwritten
+
+      //We can create an immutable version of the ojbect using freeze
+
+      //   const frozenPerson = Object.freeze(person);
+      //   console.log(frozenPerson.age);
+      //   frozenPerson.age = 75;
+      //   console.log(frozenPerson.age);
+      //   person.age = 75;
+      //   console.log(person);
+
+      //This changes are not updated for both original and copy of the object
+
+      //Object properties can be accessed like this
+
+      //   console.log(person.age);
+      //   console.log(person["age"]);
+
+      //This is to to programmatically access objects
+      //   const propertyToCheck = prompt("What do you want to check");
+
+      //   console.log(person.propertyToCheck); // Returns undefined
+      //   console.log(person[propertyToCheck]); // Returns actual value
+
+      //   const nameInput = document.querySelector("[name=first]");
+      //   const name = nameInput ? nameInput.value : "Nothing";
+      //   console.log(name);
+
+      //   console.log(person);
+      //   console.log(delete person.name);
+      //   console.log(person);
+      //
+
+      const person1 = {
+        first: "wes",
+        last: "bos",
+        clothing: {
+          shirts: 10,
+          pants: 15,
+        },
+      };
+
+      const person2 = {
+        first: "wes",
+        last: "bos",
+      };
+
+      console.log("Comparing identical objects give", person1 === person2);
+      //Objects are never the same even if the contents are the same
+
+      const person3 = person1; // Copying by reference
+      //Even if you update the copy, the original gets updated
+      console.log(
+        "Comparing copied//referenced objects gives",
+        person3 === person1
+      );
+      person3.first = "Damien";
+      console.log(
+        "Logging the original object after changing copied object gives",
+        person1.first
+      );
+
+      //This is a shallow copy
+      const person4 = { ...person1 }; //Creating a copy that isn't referenced to the original object using the spread operator
+
+      // const person5 = Object.assign({}, person1);
+
+      person4.first = "Larry";
+      console.log(
+        "Changing object.first",
+        person4.first,
+        "didn't change the object.first",
+        person1.first
+      );
+
+      console.log(
+        "The number of clothing in person1 is",
+        person1.clothing.shirts
+      );
+      console.log(
+        "The number of clothing in person4 is",
+        person4.clothing.shirts
+      );
+      person4.clothing.shirts = 100;
+      console.log("Updated sub-object of person4");
+      console.log(
+        "The number of clothing in person1 is",
+        person1.clothing.shirts
+      );
+      console.log(
+        "The number of clothing in person4 is",
+        person4.clothing.shirts
+      );
+
+      //This shows that only the first level is copied
+
+      //DEEP CLONE
+      const person5 = _.cloneDeep(person1);
+      console.log("After deep cloning");
+
+      console.log(
+        "The number of clothing in person1 is",
+        person1.clothing.shirts
+      );
+      console.log(
+        "The number of clothing in person5 is",
+        person5.clothing.shirts
+      );
+      person5.clothing.shirts = 750;
+      console.log("Updated sub-object of person4");
+      console.log(
+        "The number of clothing in person1 is",
+        person1.clothing.shirts
+      );
+      console.log(
+        "The number of clothing in person5 is",
+        person5.clothing.shirts
+      );
+
+      //Merging stuff
+
+      const meatStuff = {
+        bacon: 2,
+        sausage: 3,
+        oyester: 15,
+      };
+
+      const veggieStuff = {
+        lettuce: 5,
+        potato: 6,
+        oyester: 10,
+      };
+      console.log(meatStuff);
+      console.log(veggieStuff);
+      //Merge these two
+      console.log("Merging these two");
+      const stuff = { ...meatStuff, oyesters: 20, ...veggieStuff }; //Merging
+      //The order of the spread for merge decides on which of the duplicates will stay
+      //Whatever isolated property being passed will override all
+      console.log(stuff);
+
+      function doStuff(data) {
+        data.potato = 100000;
+      }
+
+      doStuff(stuff);
+      console.log(
+        "The changes made to stuff object in function causes change globally",
+        stuff,
+        "Potato has been updated"
+      );
+    </script>
+  </body>
+</html>

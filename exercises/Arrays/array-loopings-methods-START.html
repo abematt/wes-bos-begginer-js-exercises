@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title> </title>
+    <link rel="stylesheet" href="../../base.css" />
+  </head>
+
+  <body>
+    <script>
+      const toppings = [
+        "Mushrooms ",
+        "Tomatoes",
+        "Eggs",
+        "Chili",
+        "Lettuce",
+        "Avocado",
+        "Chiles",
+        "Bacon",
+        "Pickles",
+        "Onions",
+        "Cheese",
+      ];
+
+      const students = [
+        {
+          id: "11ce",
+          first_name: "Dall",
+          last_name: "Puckring",
+        },
+        {
+          id: "2958",
+          first_name: "Margarete",
+          last_name: "Brandi",
+        },
+        {
+          id: "565a",
+          first_name: "Bendicty",
+          last_name: "Woodage",
+        },
+        {
+          id: "3a16",
+          first_name: "Micki",
+          last_name: "Mattes",
+        },
+        {
+          id: "f396",
+          first_name: "Flory",
+          last_name: "Gladeche",
+        },
+        {
+          id: "de5f",
+          first_name: "Jamill",
+          last_name: "Emilien",
+        },
+        {
+          id: "54cb",
+          first_name: "Brett",
+          last_name: "Aizikowitz",
+        },
+        {
+          id: "9135",
+          first_name: "Lorry",
+          last_name: "Smallman",
+        },
+        {
+          id: "978f",
+          first_name: "Gilly",
+          last_name: "Flott",
+        },
+      ];
+
+      const people = [
+        {
+          birthday: "April 22, 1993",
+          names: {
+            first: "Keith",
+            last: "Buckley",
+          },
+        },
+        {
+          birthday: "January 3, 1975",
+          names: {
+            first: "Larry",
+            last: "Heep",
+          },
+        },
+        {
+          birthday: "February 12, 1944",
+          names: {
+            first: "Linda",
+            last: "Bermeer",
+          },
+        },
+      ];
+
+      const buns = ["egg", "wonder", "brioche"];
+
+      const meats = {
+        beyond: 10,
+        beef: 5,
+        pork: 7,
+      };
+
+      const prices = {
+        hotDog: 453,
+        burger: 765,
+        sausage: 634,
+        corn: 234,
+      };
+
+      const orderTotals = [342, 1002, 523, 34, 634, 854, 1644, 2222];
+
+      const feedback = [
+        { comment: "Love the burgs", rating: 4 },
+        { comment: "Horrible Service", rating: 2 },
+        { comment: "Smoothies are great, liked the burger too", rating: 5 },
+        { comment: "Ambiance needs work", rating: 3 },
+        { comment: "I DONT LIKE BURGERS", rating: 1 },
+      ];
+
+      const faces = ["😃", "🤠", "🤡", "🤑", "😵", "🌞", "🐶", "😺"];
+
+      const inventory = [
+        { type: "shirt", price: 4000 },
+        { type: "pants", price: 4532 },
+        { type: "socks", price: 234 },
+        { type: "shirt", price: 2343 },
+        { type: "pants", price: 2343 },
+        { type: "socks", price: 542 },
+        { type: "pants", price: 123 },
+      ];
+
+      /*
+        Looping Methods
+      */
+
+      function logTopping(stuff, index, Originalarray) {
+        //log the topping
+        console.log(stuff);
+        //log the prev topping if there is one
+        const prevTopping = Originalarray[index - 1];
+        prevTopping
+          ? console.log("Prev Entry:", Originalarray[index - 1])
+          : null;
+        //log the next topping if there is one
+        const nextTopping = Originalarray[index + 1];
+        if (nextTopping) {
+          console.log("Next Entry:", Originalarray[index + 1]);
+        }
+        //if its the last item in the array say good bye
+        if (index === Originalarray.length - 1) {
+          console.log("Bye Bye 👌 ");
+        }
+        console.log("------------🕉 ------------");
+      }
+      toppings.forEach(logTopping);
+
+      console.clear();
+      //Map,Filter,Reduce
+
+      // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* MAP *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+      function addArms(face) {
+        return `✋${face}🤚`;
+      }
+
+      const toys = faces.map(addArms);
+      toys.forEach((oneBoi) => {
+        console.log(oneBoi);
+      });
+
+      function bosify(name) {
+        return `${name} Bos`;
+      }
+
+      function capitalize(word) {
+        return `${word[0].toUpperCase()}${word.slice(1)}`;
+      }
+      const fullNames = ["wes", "kait", "poppy"].map(capitalize).map(bosify); //look at how we can keep building maps on each other
+      console.log(fullNames);
+
+      const orderTotalsWithTax = orderTotals.map((total) => total * 1.13);
+      console.log(orderTotalsWithTax);
+
+      console.clear();
+
+      const cleanPeople = people.map(function (person) {
+        //Get their birthday timestamp
+        const birthday = new Date(person.birthday).getTime();
+        //Get current time stamp
+        //const now = new Date().getTime();
+        const now = Date.now();
+
+        //figure out how old they are
+        const age = Math.floor((now - birthday) / 31536000000);
+        //return their full name and bday in an object
+        return {
+          age,
+          name: `${person.names.first} ${person.names.last}`,
+        };
+      });
+
+      console.table(cleanPeople);
+
+      console.clear();
+
+      // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* Filter/Find  *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+      const over40 = cleanPeople.filter((person) => person.age >= 40);
+      console.table(over40);
+
+      over40.length ? console.log("Some people") : console.log("no people");
+
+      const studentFind = students.find((student) => student.id === "565a");
+      console.log(studentFind);
+
+      function mStudentFunc(person) {
+        return person.first_name.startsWith("B");
+      }
+      // const mStudentFind = students.filter((person) =>
+      //   person.first_name.startsWith("B")
+      // );
+
+      const mStudentFind = students.filter(mStudentFunc);
+      console.table(mStudentFind);
+
+      console.clear();
+
+      function findById(id) {
+        return function isStudent(student) {
+          return student.id === `${id}`;
+        };
+      }
+
+      function findByProp(prop, propWeAreLookingFor) {
+        return function isStudent(student) {
+          return student[prop] === propWeAreLookingFor; ///NOTE TO SELF!!!! - You can access array objects keys in this format, (square-bracket) - ALSO CALLELD
+          //PROPERTY LOOKUP
+        };
+      }
+      id = "54cb";
+      name = "Flory";
+      const studentOne = students.find(findByProp("id", id));
+      const studentTwo = students.find(findByProp("first_name", name));
+      console.log(studentOne, ":", studentTwo);
+
+      console.clear();
+
+      // *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* REDUCE *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+      function tallyNumbers(tally, currentTotal) {
+        console.log("The current tally is", tally);
+        console.log("The current total is ", currentTotal);
+        console.log("----------------");
+        tally = tally + currentTotal;
+        return tally; //In a reduce, the tally is the value returned by function , so if u don't return
+        //It'll be the passed second argument (0) or if no argument, the first instace of looped value and then undefined from there
+      }
+      //Here the number 0 is the first accumulator passed, if u give nothing, it takes the first instance of loop values
+      const allOrders = orderTotals.reduce(tallyNumbers, 0);
+
+      console.log("Total:", allOrders);
+
+      console.clear(); //Console clear for Map Basic Example
+
+      function inventoryReducer(totals, item) {
+        // console.log(`looping over ${item.type}`);
+        //Increment the type by one
+        totals[item.type] = totals[item.type] + 1 || 1;
+        // totals.shirt ? (totals.shirt = totals.shirt + 1) : (totals.shirt = 1);
+
+        //return the totals so next loop can use it
+        return totals;
+      }
+      const inventoryCounts = inventory.reduce(inventoryReducer, {});
+
+      const totalInventoryPrice = inventory.reduce(
+        (acc, item) => acc + item.price,
+        0
+      );
+      console.log(inventoryCounts);
+      console.log(totalInventoryPrice);
+    </script>
+  </body>
+</html>
