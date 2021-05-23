@@ -1,0 +1,46 @@
+const video = document.querySelector(".webcam ");
+const canvas = document.querySelector(".video");
+const ctx = canvas.getContext("2d"); //The context is where u draw on the canvas
+
+ctx.strokeStyle = "#ffc600";
+ctx.lineWidth = 2;
+const faceCanvas = document.querySelector(".face");
+const faceCtx = canvas.getContext("2d");
+const faceDetector = new FaceDetector(); //This function is declared as async so as to use the await keyword
+
+async function populateVideo() {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: 720,
+      height: 480
+    }
+  }); //Creates a stream object by grabbing the usermedia(video/webcam)
+
+  video.srcObject = stream;
+  await video.play(); //playing the source object video
+  //await is added to literally wait for the video to load
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  faceCanvas.width = video.videoWidth;
+  faceCanvas.height = video.videoHeight;
+}
+
+async function detect() {
+  const faces = await faceDetector.detect(video);
+  console.log(faces.length);
+  faces.forEach(DrawFace); //Request from  the browser, when the next animation is and run detect function
+  // requestAnimationFrame(detect);
+}
+
+function DrawFace(face) {
+  const {
+    width,
+    height,
+    top,
+    left
+  } = face.boundingBox;
+  ctx.strokeRect(left, top, width, height);
+}
+
+populateVideo().then(detect);

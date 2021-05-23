@@ -1,0 +1,20 @@
+const video = document.querySelector(".webcam ");
+const canvas = document.querySelector(".video");
+const ctx = canvas.getContext("2d"); //The context is where u draw on the canvas
+
+const faceCanvas = document.querySelector(".face");
+const faceCtx = canvas.getContext("2d");
+const faceDetector = new FaceDetector(); //This function is declared as async so as to use the await keyword
+
+async function populateVideo() {
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: {
+      width: 480,
+      height: 360
+    }
+  }); //Creates a stream object by grabbing the usermedia(video: webcam)
+
+  video.srcObject = stream;
+}
+
+populateVideo();
